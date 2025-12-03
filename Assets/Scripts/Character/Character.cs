@@ -12,6 +12,8 @@ public class Character : MonoBehaviour, IDirectionalMovable, IDirectionalRotatab
     public Vector3 CurrentVelocity => _mover.CurrentVelocity;
     public Quaternion CurrentRotation => _rotator.CurrentRotation;
 
+    public Vector3 Position => transform.position;
+
     private void Awake()
     {
         _mover = new DirectionalMover(GetComponent<CharacterController>(), _moveSpeed);
