@@ -3,45 +3,28 @@ using UnityEngine.AI;
 
 public class InputExample : MonoBehaviour
 {
-    [SerializeField] private Character _character;
-    [SerializeField] private Character _enemy;
-    [SerializeField] private AgentCharacter _agentEnemy;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private AgentCharacter _agentCharacter;
+    [SerializeField] private LayerMask _ground;
 
-    private Controller _characterController;
-    private Controller _enemyController;
-    private Controller _agentEnemyController;
+    private Controller _agentCharacterController;
+    private MousePositionReader _mousePositionReader;
+    private MovementClickHandler _movementClickHandler;
 
     private void Awake()
     {
-        _characterController = new CompositeController(
-            new PlayerDirectionalMovableController(_character),
-            new PlayerDirectionalRotatableController(_character));
+        _mousePositionReader = new MousePositionReader(_camera);
+        _movementClickHandler = new MovementClickHandler();
 
-        _characterController.Enable();
-
-        NavMeshQueryFilter queryFilter = new();
-        queryFilter.agentTypeID = 0;
-        queryFilter.areaMask = NavMesh.AllAreas;
-
-        _enemyController = new CompositeController(
-            new DirectionalMovableAgroController(_enemy, _character.transform, queryFilter, 30, 2, 1),
-            new AlongMovableVelocityRotatableController(_enemy, _enemy));
-
-        _enemyController.Enable();
-
-        _agentEnemyController = new AgentCharacterAgroController(_agentEnemy, _character.transform, 30, 2, 1);
-        _agentEnemyController.Enable();
-    }
-
-    private void Start()
-    {
-        _enemy.gameObject.SetActive(false);
+        _agentCharacterController = new CompositeController(
+            new AgentCharacterMovableController(_agentCharacter, _mousePositionReader, _movementClickHandler, 0.05f, _ground),
+            new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter));
+        
+        _agentCharacterController.Enable();
     }
 
     private void Update()
     {
-        _characterController.Update(Time.deltaTime);
-        _enemyController.Update(Time.deltaTime);
-        _agentEnemyController.Update(Time.deltaTime);
+        _agentCharacterController.Update(Time.deltaTime);
     }
 }

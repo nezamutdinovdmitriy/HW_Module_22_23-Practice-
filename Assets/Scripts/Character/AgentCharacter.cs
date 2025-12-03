@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AgentCharacter : MonoBehaviour
+public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectionalMovable
 {
     [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private Transform _target;
 
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _moveSpeed;
@@ -14,14 +13,18 @@ public class AgentCharacter : MonoBehaviour
 
     private void Awake()
     {
-        _agent.updateRotation = false;
-
         _mover = new AgentMover(_agent, _moveSpeed);
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
+
+        _agent.updateRotation = false;
     }
 
     public Vector3 CurrentVelocity => _mover.CurrentVelocity;
     public float MoveSpeed => _moveSpeed;
+
+    public Quaternion CurrentRotation => transform.rotation;
+
+    public Vector3 Position => transform.position;
 
     private void Update()
     {
@@ -37,4 +40,6 @@ public class AgentCharacter : MonoBehaviour
     public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
 
     public bool TryGetPath(Vector3 targetPosition, NavMeshPath pathToTarget) => NavMeshUtils.TryGetPath(_agent, targetPosition, pathToTarget);
+
+    public void SetMoveDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
 }

@@ -6,5 +6,5 @@ public class MovementClickHandler
     
     public bool IsMoveClickPressed { get; private set; }
 
-    private void Update() => IsMoveClickPressed = Input.GetMouseButtonDown(_leftMouseButtonKey);
+    public bool CheckForMovementClick() => IsMoveClickPressed = Input.GetMouseButtonDown(_leftMouseButtonKey);
 }
