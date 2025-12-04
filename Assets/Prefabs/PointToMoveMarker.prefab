@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 587881986038133581}
   m_Layer: 0
-  m_Name: PointFollow
+  m_Name: PointToMoveMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

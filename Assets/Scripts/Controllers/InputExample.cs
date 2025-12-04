@@ -1,23 +1,23 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class InputExample : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private AgentCharacter _agentCharacter;
     [SerializeField] private LayerMask _ground;
+    [SerializeField] private GameObject _pointToMovePrefab;
 
     private Controller _agentCharacterController;
-    private MousePositionReader _mousePositionReader;
-    private MovementClickHandler _movementClickHandler;
+    private IPointToMoveInput _moveInput;
+    private ISelectedPosition _pointView;
 
     private void Awake()
     {
-        _mousePositionReader = new MousePositionReader(_camera);
-        _movementClickHandler = new MovementClickHandler();
+        _moveInput = new MouseToWorldPointInput(_camera, _ground);
+        _pointView = new PointToMoveView(_pointToMovePrefab, 1f);
 
         _agentCharacterController = new CompositeController(
-            new AgentCharacterMovableController(_agentCharacter, _mousePositionReader, _movementClickHandler, 0.05f, _ground),
+            new AgentCharacterPointToMoveController(_agentCharacter, _moveInput, _pointView, _ground),
             new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter));
         
         _agentCharacterController.Enable();

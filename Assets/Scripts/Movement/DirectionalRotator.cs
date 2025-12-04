@@ -16,8 +16,6 @@ public class DirectionalRotator
 
     public Quaternion CurrentRotation => _transform.rotation;
 
-    public void SetInputDirection(Vector3 direction) => _currentDirection = direction;
-
     public void Update(float deltaTime)
     {
         if (_currentDirection.sqrMagnitude < DeathZone)
@@ -29,4 +27,6 @@ public class DirectionalRotator
 
         _transform.rotation = Quaternion.RotateTowards(_transform.rotation, lookRotaton, step);
     }
+
+    public void SetInputDirection(Vector3 direction) => _currentDirection = direction;
 }
