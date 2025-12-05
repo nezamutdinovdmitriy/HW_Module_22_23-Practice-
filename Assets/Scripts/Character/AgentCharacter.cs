@@ -38,11 +38,11 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
 
         _rotator.Update(Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.T))
-            TakeDamage(15);
+        //if (Input.GetKeyDown(KeyCode.T))
+        //    TakeDamage(15);
 
-        if (Input.GetKeyDown(KeyCode.H))
-            Heal(15);
+        //if (Input.GetKeyDown(KeyCode.H))
+        //    Heal(15);
     }
 
     public void SetDestination(Vector3 position) => _mover.SetDestination(position);

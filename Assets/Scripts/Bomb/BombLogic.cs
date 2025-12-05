@@ -62,7 +62,7 @@ public class BombLogic : MonoBehaviour
                 damageable.TakeDamage(_damage);
         }
 
-        //System.Array.Clear(targetsArray, 0, countTargets);
+        System.Array.Clear(targetsArray, 0, countTargets);
 
         HasExploded = true;
     }

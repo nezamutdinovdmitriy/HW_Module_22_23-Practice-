@@ -22,7 +22,9 @@ public class BombView : MonoBehaviour
         if (_bombLogic.HasExploded)
         {
             ParticleSystem explosionEffect = Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity, null);
+            
             explosionEffect.transform.localScale = _newParticleScale;
+            
             Destroy(_bombLogic.gameObject);
         }
     }
