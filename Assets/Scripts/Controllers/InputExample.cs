@@ -17,9 +17,11 @@ public class InputExample : MonoBehaviour
         _pointView = new PointToMoveView(_pointToMovePrefab, 1f);
 
         _agentCharacterController = new CompositeController(
-            new AgentCharacterPointToMoveController(_agentCharacter, _moveInput, _pointView, _ground),
-            new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter));
-        
+           new MovementBehaviorStateController(
+               new AgentCharacterPointToMoveController(_agentCharacter, _moveInput, _pointView, _ground),
+               new AgentСharacterWanderingMoveController(_agentCharacter, 2f, 15f)),
+           new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter));
+
         _agentCharacterController.Enable();
     }
 

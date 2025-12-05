@@ -29,4 +29,17 @@ public class NavMeshUtils
 
         return pathLength;
     }
+
+    public static Vector3 GetRandomPointOnNavMesh(Vector3 origin, float radius)
+    {
+        Vector3 nextPositonToMove = Random.insideUnitSphere * radius;
+        nextPositonToMove += origin;
+
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(nextPositonToMove, out hit, radius, NavMesh.AllAreas))
+            return hit.position;
+
+        return origin;
+    }
 }

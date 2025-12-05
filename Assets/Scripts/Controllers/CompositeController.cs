@@ -1,6 +1,6 @@
 public class CompositeController : Controller
 {
-    private Controller[] _controllers;
+    private readonly Controller[] _controllers;
 
     public CompositeController(params Controller[] controllers)
     {

@@ -4,7 +4,8 @@ public class MouseToWorldPointInput : IPointToMoveInput
 {
     private const int _pointToMoveKey = 0;
 
-    private Camera _camera;
+    private readonly Camera _camera;
+
     private LayerMask _movementMask;
 
     public MouseToWorldPointInput(Camera camera, LayerMask movementMask)

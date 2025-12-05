@@ -37,7 +37,7 @@ public class BombLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) => _isActive = true;
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
 
@@ -51,8 +51,6 @@ public class BombLogic : MonoBehaviour
     public void Explode()
     {
         int countTargets = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, targetsArray, _mask);
-
-        Debug.Log(countTargets);
 
         for (int i = 0; i < countTargets; i++)
         {

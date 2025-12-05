@@ -4,8 +4,7 @@ using UnityEngine.AI;
 public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectionalMovable, IHealth, IDamageable
 {
     [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private float _rotationSpeed;
-    
+    [SerializeField] private float _rotationSpeed;   
     [SerializeField] private float _maxHealth;
 
     private AgentMover _mover;
@@ -37,12 +36,6 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
             return;
 
         _rotator.Update(Time.deltaTime);
-
-        //if (Input.GetKeyDown(KeyCode.T))
-        //    TakeDamage(15);
-
-        //if (Input.GetKeyDown(KeyCode.H))
-        //    Heal(15);
     }
 
     public void SetDestination(Vector3 position) => _mover.SetDestination(position);
