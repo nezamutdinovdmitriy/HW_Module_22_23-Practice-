@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class AgentCharacterView : MonoBehaviour
 {
-    private const float Step = 0.1f;
-
     private readonly int _velocityKey = Animator.StringToHash("VelocityX");
     private readonly int _isAliveKey = Animator.StringToHash("IsAlive");
     private readonly int _isHitTriggerKey = Animator.StringToHash("Hit");
@@ -11,6 +9,8 @@ public class AgentCharacterView : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private AgentCharacter _character;
     [SerializeField] private float smoothTime = 0.25f;
+    [SerializeField] private float _injuredFadeSpeed = 5.0f;
+    [SerializeField] private float _hitLayerStep = 0.50f;
 
     private float _currentVelocity;
     private float _velocitySmooth;
@@ -21,6 +21,7 @@ public class AgentCharacterView : MonoBehaviour
 
     private bool _isTakingDamage => _prevHealthValue > _character.CurrentHealth;
     private float _prevHealthValue;
+    private bool _isStartedProcessResetLayerWeight;
 
     private void Start()
     {
@@ -40,13 +41,28 @@ public class AgentCharacterView : MonoBehaviour
         if (_currentVelocity < 0.01f)
             _currentVelocity = 0f;
 
+        float targetInjuredWeight = (_character.CurrentHealth / _character.MaxHealth > 0.3f) ? 0f : 1f;
+        float currentInjuredWeight = _animator.GetLayerWeight(_injerdLayerIndex);
+
+        float newInjuredWeight = Mathf.MoveTowards(currentInjuredWeight, targetInjuredWeight, _injuredFadeSpeed * Time.deltaTime);
+
         if (_character.CurrentHealth / _character.MaxHealth > 0.3f)
-            _animator.SetLayerWeight(_injerdLayerIndex, Mathf.Lerp(_animator.GetLayerWeight(_injerdLayerIndex), 0, Step));
+            _animator.SetLayerWeight(_injerdLayerIndex, newInjuredWeight);
         else
-            _animator.SetLayerWeight(_injerdLayerIndex, Mathf.Lerp(_animator.GetLayerWeight(_injerdLayerIndex), 1, Step));
+            _animator.SetLayerWeight(_injerdLayerIndex, newInjuredWeight);
 
         _animator.SetFloat(_velocityKey, _currentVelocity);
         _animator.SetBool(_isAliveKey, _character.IsAlive);
+
+        if (_isStartedProcessResetLayerWeight)
+        {
+            ResetLayerWeight(_hitLayerIndex);
+
+            if(_animator.GetLayerWeight(_hitLayerIndex) <= 0)
+            {
+                _isStartedProcessResetLayerWeight = false;
+            }
+        }
     }
 
     private void LateUpdate()
@@ -55,14 +71,15 @@ public class AgentCharacterView : MonoBehaviour
         {
             _animator.SetLayerWeight(_hitLayerIndex, 1);
             _animator.SetTrigger(_isHitTriggerKey);
-            //_animator.SetLayerWeight(_hitLayerIndex, Mathf.Lerp(_animator.GetLayerWeight(_hitLayerIndex), 0, Step));
         }
 
         _prevHealthValue = _character.CurrentHealth;
     }
 
-    public void ResetLayerWeight(int layerIndex)
+    private void ResetLayerWeight(int layerIndex)
     {
-        _animator.SetLayerWeight(layerIndex, Mathf.Lerp(_animator.GetLayerWeight(layerIndex), 0, Step));
+        _animator.SetLayerWeight(layerIndex, _animator.GetLayerWeight(layerIndex) - _hitLayerStep * Time.deltaTime);
     }
+
+    public void StartProcessResetLayerWeight() => _isStartedProcessResetLayerWeight = true;
 }

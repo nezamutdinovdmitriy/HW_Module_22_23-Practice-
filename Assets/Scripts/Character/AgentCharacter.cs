@@ -29,7 +29,7 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
 
     public float MaxHealth => _maxHealth;
     public float CurrentHealth {  get; private set; }
-    public bool IsAlive => CurrentHealth >= 0;
+    public bool IsAlive => CurrentHealth > 0;
 
     private void Update()
     {

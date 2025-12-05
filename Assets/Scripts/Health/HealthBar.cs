@@ -6,7 +6,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private AgentCharacter _character;
     [SerializeField] private Image _filled;
 
-    private void Update()
+    private void LateUpdate()
     {
         _filled.fillAmount = _character.CurrentHealth / _character.MaxHealth;
     }
