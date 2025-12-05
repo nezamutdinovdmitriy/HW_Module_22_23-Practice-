@@ -10,6 +10,7 @@ public class BombLogic : MonoBehaviour
     [SerializeField, Range(2, 15)] private float _triggerRadius;
     [SerializeField] private float _damage;
     [SerializeField] private float _timerToExplosion;
+    [SerializeField] private LayerMask _mask;
 
     private SphereCollider _triggerCollider;
     private bool _isActive;
@@ -49,7 +50,9 @@ public class BombLogic : MonoBehaviour
 
     public void Explode()
     {
-        int countTargets = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, targetsArray);
+        int countTargets = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, targetsArray, _mask);
+
+        Debug.Log(countTargets);
 
         for (int i = 0; i < countTargets; i++)
         {
@@ -59,7 +62,7 @@ public class BombLogic : MonoBehaviour
                 damageable.TakeDamage(_damage);
         }
 
-        System.Array.Clear(targetsArray, 0, countTargets);
+        //System.Array.Clear(targetsArray, 0, countTargets);
 
         HasExploded = true;
     }

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BombView : MonoBehaviour
 {
-    private const float BaseExplosionRadius = 14f;
-    private const float BaseParticleScale = 1.1f;
+    private const float BaseExplosionRadius = 6f;
+    private const float BaseParticleScale = 1f;
 
     private readonly float _scalingFactor = BaseParticleScale / BaseExplosionRadius;
 
@@ -23,7 +23,6 @@ public class BombView : MonoBehaviour
         {
             ParticleSystem explosionEffect = Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity, null);
             explosionEffect.transform.localScale = _newParticleScale;
-
             Destroy(_bombLogic.gameObject);
         }
     }
