@@ -18,7 +18,7 @@ public class InputExample : MonoBehaviour
 
         _agentCharacterController = new CompositeController(
            new MovementBehaviorStateController(
-               new AgentCharacterPointToMoveController(_agentCharacter, _moveInput, _pointView, _ground),
+               new AgentCharacterPointToMoveController(_agentCharacter, _moveInput, _pointView),
                new AgentСharacterWanderingMoveController(_agentCharacter, 2f, 15f)),
            new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter));
 

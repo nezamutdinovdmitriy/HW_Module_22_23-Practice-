@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class AgentCharacterView : MonoBehaviour
 {
+    private const float CriticalHealthThreshold = 0.3f;
+
     private readonly int _velocityKey = Animator.StringToHash("VelocityX");
     private readonly int _isAliveKey = Animator.StringToHash("IsAlive");
     private readonly int _isHitTriggerKey = Animator.StringToHash("Hit");
@@ -40,12 +42,12 @@ public class AgentCharacterView : MonoBehaviour
         if (_currentVelocity < 0.01f)
             _currentVelocity = 0f;
 
-        float targetInjuredWeight = (_character.CurrentHealth / _character.MaxHealth > 0.3f) ? 0f : 1f;
+        float targetInjuredWeight = (_character.CurrentHealth / _character.MaxHealth > CriticalHealthThreshold) ? 0f : 1f;
         float currentInjuredWeight = _animator.GetLayerWeight(_injerdLayerIndex);
 
         float newInjuredWeight = Mathf.MoveTowards(currentInjuredWeight, targetInjuredWeight, _injuredFadeSpeed * Time.deltaTime);
 
-        if (_character.CurrentHealth / _character.MaxHealth > 0.3f)
+        if (_character.CurrentHealth / _character.MaxHealth > CriticalHealthThreshold)
             _animator.SetLayerWeight(_injerdLayerIndex, newInjuredWeight);
         else
             _animator.SetLayerWeight(_injerdLayerIndex, newInjuredWeight);

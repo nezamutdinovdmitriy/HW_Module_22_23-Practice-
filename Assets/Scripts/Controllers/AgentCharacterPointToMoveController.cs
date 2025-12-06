@@ -5,17 +5,17 @@ public class AgentCharacterPointToMoveController : Controller
     private readonly AgentCharacter _character;
     private readonly IPointToMoveInput _moveInput;
     private readonly ISelectedPosition _pointToMoveView;
-    private LayerMask _ground;
 
-    public AgentCharacterPointToMoveController(AgentCharacter character, IPointToMoveInput moveInput, ISelectedPosition pointView, LayerMask ground)
+    public AgentCharacterPointToMoveController(AgentCharacter character, IPointToMoveInput moveInput, ISelectedPosition pointView)
     {
         _character = character;
         _moveInput = moveInput;
         _pointToMoveView = pointView;
-        _ground = ground;
     }
 
     public bool IsActive { get; private set; }
+
+    public bool IsMoving => _character.CurrentVelocity.magnitude >= 0.05f;
 
     protected override void UpdateLogic(float deltaTime)
     {
@@ -27,7 +27,7 @@ public class AgentCharacterPointToMoveController : Controller
             IsActive = true;
         }
 
-        if (IsActive && _character.CurrentVelocity.magnitude <= 0.05f)
+        if (IsActive && IsMoving == false)
             IsActive = false;
     }
 
