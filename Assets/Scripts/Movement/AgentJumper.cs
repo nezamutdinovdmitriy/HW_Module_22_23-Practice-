@@ -4,10 +4,10 @@ using UnityEngine.AI;
 
 public class AgentJumper
 {
-    private NavMeshAgent _agent;
-    private float _speedJump;
+    private readonly NavMeshAgent _agent;
+    private readonly float _speedJump;
 
-    private MonoBehaviour _coroutineRunner;
+    private readonly MonoBehaviour _coroutineRunner;
 
     private Coroutine _jumpProcess;
 
@@ -30,16 +30,16 @@ public class AgentJumper
     
     private IEnumerator JumpProcess(OffMeshLinkData offMeshLinkData)
     {
-        Vector3 startPosition = offMeshLinkData.startPos;
-        Vector3 endPosition = offMeshLinkData.endPos;
+        Vector3 startLinkPosition = offMeshLinkData.startPos;
+        Vector3 endLinkPosition = offMeshLinkData.endPos;
 
-        float duration = (endPosition - startPosition).magnitude / _speedJump;
+        float duration = (endLinkPosition - startLinkPosition).magnitude / _speedJump;
 
         float progress = 0f;
 
         while (progress < duration)
         {
-            _agent.transform.position = Vector3.Lerp(startPosition, endPosition, progress / duration);
+            _agent.transform.position = Vector3.Lerp(startLinkPosition, endLinkPosition, progress / duration);
             progress += Time.deltaTime;
 
             yield return null;

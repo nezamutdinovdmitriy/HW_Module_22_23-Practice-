@@ -3,9 +3,9 @@ using UnityEngine;
 public class DirectionalRotator
 {
     private const float DeathZone = 0.05f;
+    private readonly Transform _transform;
+    private readonly float _speed;
 
-    private Transform _transform;
-    private float _speed;
     private Vector3 _currentDirection;
 
     public DirectionalRotator(Transform transform, float speed)
@@ -28,5 +28,9 @@ public class DirectionalRotator
         _transform.rotation = Quaternion.RotateTowards(_transform.rotation, lookRotaton, step);
     }
 
-    public void SetInputDirection(Vector3 direction) => _currentDirection = direction;
+    public void SetInputDirection(Vector3 direction)
+    {
+        direction.y = 0;
+        _currentDirection = direction;
+    }
 }

@@ -20,7 +20,7 @@ public class InputExample : MonoBehaviour
            new MovementBehaviorStateController(
                new AgentCharacterPointToMoveController(_agentCharacter, _moveInput, _pointView),
                new AgentСharacterWanderingMoveController(_agentCharacter, 2f, 15f)),
-           new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter));
+           new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter, _agentCharacter));
 
         _agentCharacterController.Enable();
     }

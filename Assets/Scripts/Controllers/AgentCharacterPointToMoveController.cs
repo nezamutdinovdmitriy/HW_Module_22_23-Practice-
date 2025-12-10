@@ -22,11 +22,12 @@ public class AgentCharacterPointToMoveController : Controller
     {
         if(_character.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
         {
-            if(_character.InJumpProcess == false)
-            {
-                Vector3 jumpDirection = (offMeshLinkData.endPos - offMeshLinkData.startPos);
+            Vector3 jumpDirection = offMeshLinkData.endPos - _character.Position;
 
-                _character.SetRotationDirection(jumpDirection);
+            _character.SetRotationDirection(jumpDirection);
+
+            if (_character.InJumpProcess == false)
+            {
                 _character.Jump(offMeshLinkData);
             }
 

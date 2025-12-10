@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CoroutineExample : MonoBehaviour
 {
+    [SerializeField] private float _speed = 0.15f;
     [SerializeField] private Transform _transform;
 
     [SerializeField] private List<Transform> _patrolPointsList = new();
 
-    private Queue<Transform> _points = new Queue<Transform>();
+    private Queue<Transform> _points = new();
     private Transform _targetPoint;
-    private float _speed = 0.15f;
 
     private void Awake()
     {

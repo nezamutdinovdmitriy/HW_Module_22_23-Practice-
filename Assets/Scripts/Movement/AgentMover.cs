@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class AgentMover
 {
-    NavMeshAgent _agent;
+    private readonly NavMeshAgent _agent;
 
     public Vector3 CurrentVelocity => _agent.desiredVelocity;
 
