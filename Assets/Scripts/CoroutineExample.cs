@@ -9,7 +9,7 @@ public class CoroutineExample : MonoBehaviour
 
     [SerializeField] private List<Transform> _patrolPointsList = new();
 
-    private Queue<Transform> _points = new();
+    private readonly Queue<Transform> _points = new();
     private Transform _targetPoint;
 
     private void Awake()

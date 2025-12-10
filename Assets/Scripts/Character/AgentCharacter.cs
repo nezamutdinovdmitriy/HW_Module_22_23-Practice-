@@ -8,6 +8,8 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
     [SerializeField] private float _speedJump;
     [SerializeField] private float _maxHealth;
 
+    [SerializeField] AnimationCurve _jumpCurve;
+
     private AgentMover _mover;
     private DirectionalRotator _rotator;
     private AgentJumper _jumper;
@@ -16,7 +18,7 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
     {
         _mover = new AgentMover(_agent, _agent.speed);
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
-        _jumper = new AgentJumper(_agent, _speedJump, this);
+        _jumper = new AgentJumper(_agent, _speedJump, this, _jumpCurve);
 
         CurrentHealth = _maxHealth;
 

@@ -8,14 +8,16 @@ public class AgentJumper
     private readonly float _speedJump;
 
     private readonly MonoBehaviour _coroutineRunner;
+    private readonly AnimationCurve _yOffsetCurve;
 
     private Coroutine _jumpProcess;
 
-    public AgentJumper(NavMeshAgent agent, float speedJump, MonoBehaviour coroutineRunner)
+    public AgentJumper(NavMeshAgent agent, float speedJump, MonoBehaviour coroutineRunner, AnimationCurve yOffsetCurve)
     {
         _agent = agent;
         _speedJump = speedJump;
         _coroutineRunner = coroutineRunner;
+        _yOffsetCurve = yOffsetCurve;
     }
 
     public bool InProcessJump => _jumpProcess != null;
@@ -39,7 +41,9 @@ public class AgentJumper
 
         while (progress < duration)
         {
-            _agent.transform.position = Vector3.Lerp(startLinkPosition, endLinkPosition, progress / duration);
+            float yOffset = _yOffsetCurve.Evaluate(progress / duration);
+
+            _agent.transform.position = Vector3.Lerp(startLinkPosition, endLinkPosition, progress / duration) + Vector3.up * yOffset;
             progress += Time.deltaTime;
 
             yield return null;

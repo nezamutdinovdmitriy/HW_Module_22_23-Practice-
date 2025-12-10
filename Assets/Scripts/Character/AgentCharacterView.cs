@@ -7,6 +7,7 @@ public class AgentCharacterView : MonoBehaviour
     private readonly int _velocityKey = Animator.StringToHash("VelocityX");
     private readonly int _isAliveKey = Animator.StringToHash("IsAlive");
     private readonly int _isHitTriggerKey = Animator.StringToHash("Hit");
+    private readonly int _isJumpingKey = Animator.StringToHash("IsJumping");
 
     [SerializeField] private Animator _animator;
     [SerializeField] private AgentCharacter _character;
@@ -54,6 +55,7 @@ public class AgentCharacterView : MonoBehaviour
 
         _animator.SetFloat(_velocityKey, _currentVelocity);
         _animator.SetBool(_isAliveKey, _character.IsAlive);
+        _animator.SetBool(_isJumpingKey, _character.InJumpProcess);
 
         if (_isStartedProcessResetLayerWeight)
         {
