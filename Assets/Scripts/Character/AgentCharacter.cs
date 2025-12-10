@@ -4,16 +4,19 @@ using UnityEngine.AI;
 public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectionalMovable, IHealth, IDamageable
 {
     [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private float _rotationSpeed;   
+    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _speedJump;
     [SerializeField] private float _maxHealth;
 
     private AgentMover _mover;
     private DirectionalRotator _rotator;
+    private AgentJumper _jumper;
 
     private void Awake()
     {
         _mover = new AgentMover(_agent, _agent.speed);
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
+        _jumper = new AgentJumper(_agent, _speedJump, this);
 
         CurrentHealth = _maxHealth;
 
@@ -29,6 +32,8 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
     public float MaxHealth => _maxHealth;
     public float CurrentHealth {  get; private set; }
     public bool IsAlive => CurrentHealth > 0;
+
+    public bool InJumpProcess => _jumper.InProcessJump;
 
     private void Update()
     {
@@ -58,5 +63,19 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
             return;
 
         CurrentHealth += healAmount;
+    }
+
+    public void Jump(OffMeshLinkData offMeshLinkData) => _jumper.Jump(offMeshLinkData);
+
+    public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData)
+    {
+        if (_agent.isOnOffMeshLink)
+        {
+            offMeshLinkData = _agent.currentOffMeshLinkData;
+            return true;
+        }
+
+        offMeshLinkData = default;
+        return false;
     }
 }
