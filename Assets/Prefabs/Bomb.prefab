@@ -68,10 +68,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998f967380b108244a602f917c205370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionRadius: 1
-  _triggerRadius: 0
-  _damage: 50
-  _timerToExplosion: 2
+  _explosionRadius: 7.84
+  _triggerRadius: 5.58
+  _damage: 25
+  _timeToExplosion: 2
+  _mask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!135 &4240513356411692583
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -192,3 +195,5 @@ MonoBehaviour:
   _bombLogic: {fileID: 3893737349599563764}
   _explosionEffectPrefab: {fileID: 6403252182692130911, guid: 4e12b3c53c0f8ee4da83655d8d2770d5,
     type: 3}
+  _bombClip: {fileID: 8300000, guid: df6393de3974ad3448b9f96dd89ef4c1, type: 3}
+  _audioController: {fileID: 0}

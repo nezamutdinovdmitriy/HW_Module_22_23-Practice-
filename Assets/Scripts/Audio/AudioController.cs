@@ -4,6 +4,8 @@ using UnityEngine.Audio;
 public class AudioController : MonoBehaviour
 {
     [SerializeField] private AudioMixer _mixer;
+    [SerializeField] private AudioSource _musicSource;
+    [SerializeField] private AudioSource _SFXSource;
 
     private AudioHandler _handler;
 
@@ -27,4 +29,6 @@ public class AudioController : MonoBehaviour
         else
             _handler.OnSFX();
     }
+
+    public void PlayClip(AudioClip audioClip) => _SFXSource.PlayOneShot(audioClip);
 }

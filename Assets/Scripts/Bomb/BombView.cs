@@ -10,6 +10,9 @@ public class BombView : MonoBehaviour
     [SerializeField] private BombLogic _bombLogic;
     [SerializeField] private ParticleSystem _explosionEffectPrefab;
 
+    [SerializeField] private AudioClip _bombClip;
+    [SerializeField] private AudioController _audioController;
+
     private Vector3 _newParticleScale;
 
     private void Awake()
@@ -24,6 +27,8 @@ public class BombView : MonoBehaviour
             ParticleSystem explosionEffect = Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity, null);
             
             explosionEffect.transform.localScale = _newParticleScale;
+
+            _audioController.PlayClip(_bombClip);
 
             Destroy(_bombLogic.gameObject);
         }
