@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    [SerializeField] private readonly KeyCode ToggleKey = KeyCode.F;
+    [SerializeField] private KeyCode ToggleKey = KeyCode.F;
 
     [SerializeField] private Item _itemPrefab;
 

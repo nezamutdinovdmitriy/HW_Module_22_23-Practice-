@@ -24,7 +24,7 @@ public class BombView : MonoBehaviour
             ParticleSystem explosionEffect = Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity, null);
             
             explosionEffect.transform.localScale = _newParticleScale;
-            
+
             Destroy(_bombLogic.gameObject);
         }
     }
