@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 17514426}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39735967, y: -0, z: -0, w: 0.917663}
-  m_LocalPosition: {x: 209.29485, y: 214.66783, z: 130.80762}
+  m_LocalPosition: {x: 209.25484, y: 214.66783, z: 154.22762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1901,7 +1901,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39735967, y: -0, z: -0, w: 0.917663}
-  m_LocalPosition: {x: 209.29485, y: 214.66783, z: 130.80762}
+  m_LocalPosition: {x: 209.25484, y: 214.66783, z: 154.22762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3627,8 +3627,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675547039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.95, y: 1.3, z: 38.04}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.95, y: 1.3, z: 43.095943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3647,13 +3647,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: 0, y: 0, z: 0.63267136}
-  m_EndPoint: {x: 0, y: 0, z: 9.479214}
+  m_StartPoint: {x: -0.037394524, y: 0, z: -3.7709503}
+  m_EndPoint: {x: -0.08045006, y: 0, z: 3.6314697}
   m_Width: 6.93
-  m_CostModifier: -1
+  m_CostModifier: 2
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
-  m_Area: 0
+  m_Area: 2
 --- !u!1001 &682450030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11471,7 +11471,7 @@ Transform:
   m_GameObject: {fileID: 2083943448}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.01, y: 0, z: 9.5}
+  m_LocalPosition: {x: -14.05, y: 0, z: 32.92}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -11518,6 +11518,39 @@ MonoBehaviour:
   _rotationSpeed: 500
   _speedJump: 5
   _maxHealth: 100
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 13.522011
+      outSlope: 13.522011
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.07377049
+    - serializedVersion: 3
+      time: 0.5083333
+      value: 3
+      inSlope: 0.0000066023595
+      outSlope: 0.0000066023595
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.44067803
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -15.408795
+      outSlope: -15.408795
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.076271236
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!54 &2083943452
 Rigidbody:
   m_ObjectHideFlags: 0

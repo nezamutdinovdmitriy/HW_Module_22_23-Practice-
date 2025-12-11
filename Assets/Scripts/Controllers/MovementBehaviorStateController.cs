@@ -1,9 +1,9 @@
 public class MovementBehaviorStateController : Controller
 {
     private readonly AgentCharacterPointToMoveController _pointToMoveController;
-    private readonly AgentСharacterWanderingMoveController _wanderingMoveController;
+    private readonly Controller _wanderingMoveController;
 
-    public MovementBehaviorStateController(AgentCharacterPointToMoveController pointToMoveController, AgentСharacterWanderingMoveController wanderingMoveController)
+    public MovementBehaviorStateController(AgentCharacterPointToMoveController pointToMoveController, Controller wanderingMoveController)
     {
         _pointToMoveController = pointToMoveController;
         _wanderingMoveController = wanderingMoveController;
