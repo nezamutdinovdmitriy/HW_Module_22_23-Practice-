@@ -3533,8 +3533,8 @@ MonoBehaviour:
   _itemPrefab: {fileID: 7420762369158483335, guid: ec6dffe77219da641abac7f6224c6fb9,
     type: 3}
   _target: {fileID: 2083943449}
-  _spawnRadiusForTarget: 3
-  _cooldownTime: 5
+  _spawnRadiusForTarget: 10
+  _cooldownTime: 10
 --- !u!4 &634467967
 Transform:
   m_ObjectHideFlags: 0
