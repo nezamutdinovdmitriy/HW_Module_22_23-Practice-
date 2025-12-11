@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -9,15 +10,13 @@ public class BombLogic : MonoBehaviour
     [SerializeField, Range(2, 15)] private float _explosionRadius;
     [SerializeField, Range(2, 15)] private float _triggerRadius;
     [SerializeField] private float _damage;
-    [SerializeField] private float _timerToExplosion;
+    [SerializeField] private float _timeToExplosion;
     [SerializeField] private LayerMask _mask;
 
     private SphereCollider _triggerCollider;
     private bool _isActive;
-    private float _currentTime;
 
-    public float CurrentTime => _currentTime;
-    public float TimeToExplosion => _timerToExplosion;
+    public float TimeToExplosion => _timeToExplosion;
     public float ExplosionRadius => _explosionRadius;
     public bool HasExploded { get; private set; }
 
@@ -29,27 +28,19 @@ public class BombLogic : MonoBehaviour
     private void Update()
     {
         if (_isActive)
-            _currentTime += Time.deltaTime;
-
-        if (_currentTime >= _timerToExplosion)
-            Explode();
+            StartCoroutine(ExplodeProcess(_timeToExplosion));
     }
 
-    private void OnTriggerEnter(Collider other) => _isActive = true;
-
-    private void OnDrawGizmos()
+    private void OnTriggerEnter(Collider other)
     {
-        Gizmos.color = Color.red;
-
-        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
-
-        Gizmos.color = Color.yellow;
-
-        Gizmos.DrawWireSphere(transform.position, _triggerRadius);
+        if (other.GetComponent<IDamageable>() != null)
+            _isActive = true;
     }
 
-    public void Explode()
+    private IEnumerator ExplodeProcess(float timeToExplosion)
     {
+        yield return new WaitForSeconds(timeToExplosion);
+
         int countTargets = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, targetsArray, _mask);
 
         for (int i = 0; i < countTargets; i++)
@@ -62,7 +53,7 @@ public class BombLogic : MonoBehaviour
 
         System.Array.Clear(targetsArray, 0, countTargets);
 
-        HasExploded = true;
+        HasExploded = true;    
     }
 
     private void InitializeCollider()
@@ -70,5 +61,16 @@ public class BombLogic : MonoBehaviour
         _triggerCollider = GetComponent<SphereCollider>();
         _triggerCollider.radius = _triggerRadius / transform.localScale.x;
         _triggerCollider.isTrigger = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawWireSphere(transform.position, _triggerRadius);
     }
 }
