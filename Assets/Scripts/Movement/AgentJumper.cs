@@ -29,7 +29,7 @@ public class AgentJumper
 
         _jumpProcess = _coroutineRunner.StartCoroutine(JumpProcess(offMeshLinkData));
     }
-    
+
     private IEnumerator JumpProcess(OffMeshLinkData offMeshLinkData)
     {
         Vector3 startLinkPosition = offMeshLinkData.startPos;

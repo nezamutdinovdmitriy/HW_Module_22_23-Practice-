@@ -3,6 +3,7 @@ using UnityEngine;
 public class DirectionalRotator
 {
     private const float DeathZone = 0.05f;
+    
     private readonly Transform _transform;
     private readonly float _speed;
 

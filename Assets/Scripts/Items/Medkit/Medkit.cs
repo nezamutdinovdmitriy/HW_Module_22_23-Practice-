@@ -4,16 +4,16 @@ public class Medkit : Item
 {
     [SerializeField] private float _restoreAmount;
 
-    private IDamageable _damageable;
+    private IHealable _healable;
 
     public bool HasUsed { get; private set; }
     public Transform Target { get; private set; }
-    
-    public override void Use() => _damageable.Heal(_restoreAmount);
+
+    public override void Use() => _healable.Heal(_restoreAmount);
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<IDamageable>(out _damageable))
+        if (other.TryGetComponent<IHealable>(out _healable))
         {
             Use();
             HasUsed = true;

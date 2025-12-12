@@ -3,6 +3,8 @@ using UnityEngine;
 public class AgentCharacterView : MonoBehaviour
 {
     private const float CriticalHealthThreshold = 0.3f;
+    private const float MaxLayerWeight = 1f;
+    private const float MinLayerWeight = 0f;
 
     private readonly int _velocityKey = Animator.StringToHash("VelocityX");
     private readonly int _isAliveKey = Animator.StringToHash("IsAlive");
@@ -11,6 +13,7 @@ public class AgentCharacterView : MonoBehaviour
 
     [SerializeField] private Animator _animator;
     [SerializeField] private AgentCharacter _character;
+
     [SerializeField] private float smoothTime = 0.25f;
     [SerializeField] private float _injuredFadeSpeed = 5.0f;
     [SerializeField] private float _hitLayerStep = 0.50f;
@@ -22,6 +25,7 @@ public class AgentCharacterView : MonoBehaviour
     private int _hitLayerIndex;
 
     private float _prevHealthValue;
+
     private bool _isStartedProcessResetLayerWeight;
 
     private bool IsTakingDamage => _prevHealthValue > _character.CurrentHealth;
@@ -43,7 +47,7 @@ public class AgentCharacterView : MonoBehaviour
         if (_currentVelocity < 0.01f)
             _currentVelocity = 0f;
 
-        float targetInjuredWeight = (_character.CurrentHealth / _character.MaxHealth > CriticalHealthThreshold) ? 0f : 1f;
+        float targetInjuredWeight = (_character.CurrentHealth / _character.MaxHealth > CriticalHealthThreshold) ? MinLayerWeight : MaxLayerWeight;
         float currentInjuredWeight = _animator.GetLayerWeight(_injerdLayerIndex);
 
         float newInjuredWeight = Mathf.MoveTowards(currentInjuredWeight, targetInjuredWeight, _injuredFadeSpeed * Time.deltaTime);
@@ -61,7 +65,7 @@ public class AgentCharacterView : MonoBehaviour
         {
             ResetLayerWeight(_hitLayerIndex);
 
-            if(_animator.GetLayerWeight(_hitLayerIndex) <= 0)
+            if (_animator.GetLayerWeight(_hitLayerIndex) <= MinLayerWeight)
             {
                 _isStartedProcessResetLayerWeight = false;
             }
@@ -72,7 +76,7 @@ public class AgentCharacterView : MonoBehaviour
     {
         if (IsTakingDamage)
         {
-            _animator.SetLayerWeight(_hitLayerIndex, 1);
+            _animator.SetLayerWeight(_hitLayerIndex, MaxLayerWeight);
             _animator.SetTrigger(_isHitTriggerKey);
         }
 

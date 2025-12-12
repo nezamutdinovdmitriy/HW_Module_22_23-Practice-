@@ -47,6 +47,8 @@ MonoBehaviour:
   _medkitLogic: {fileID: 7420762369158483335}
   _useEffectPrefab: {fileID: 6331275906715107348, guid: 690951f4781b19649bc5c7892414ff37,
     type: 3}
+  _healClip: {fileID: 8300000, guid: 980bd5a00a2f51647b442ee3586e7eeb, type: 3}
+  _audioController: {fileID: 0}
 --- !u!1 &7032184682750462864
 GameObject:
   m_ObjectHideFlags: 0

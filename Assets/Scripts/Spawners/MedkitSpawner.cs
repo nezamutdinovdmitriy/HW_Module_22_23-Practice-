@@ -1,22 +1,28 @@
 using System.Collections;
 using UnityEngine;
 
-public class ItemSpawner : MonoBehaviour
+public class MedkitSpawner : MonoBehaviour
 {
-    [SerializeField] private KeyCode ToggleKey = KeyCode.F;
-
-    [SerializeField] private Item _itemPrefab;
+    [SerializeField] private Medkit _medkitPrefab;
 
     [SerializeField] private Transform _target;
     [SerializeField] private float _spawnRadiusForTarget;
     [SerializeField] private float _cooldownTime;
 
+    [SerializeField] private AudioController _audioController;
+
     private bool _isActive;
     private Coroutine _spawnCoroutine;
+    private DesktopInput _input;
+
+    public void Initialize(DesktopInput input)
+    {
+        _input = input;
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(ToggleKey))
+        if (_input.ItemSpawnerToggle)
         {
             if (_isActive)
             {
@@ -37,10 +43,15 @@ public class ItemSpawner : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(cooldownTime);
+
             Vector3 spawnPoint = NavMeshUtils.GetRandomPointOnNavMesh(_target.position, _spawnRadiusForTarget);
 
-            Instantiate(_itemPrefab, spawnPoint, Quaternion.identity, null);
-            yield return new WaitForSeconds(cooldownTime);
+            Medkit item = Instantiate(_medkitPrefab, spawnPoint, Quaternion.identity, null);
+
+            MedkitView view = item.GetComponentInChildren<MedkitView>();
+
+            view.Initialize(_audioController);
         }
     }
 }

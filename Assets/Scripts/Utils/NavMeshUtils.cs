@@ -35,9 +35,7 @@ public class NavMeshUtils
         Vector3 nextPositonToMove = Random.insideUnitSphere * radius;
         nextPositonToMove += origin;
 
-        NavMeshHit hit;
-
-        if (NavMesh.SamplePosition(nextPositonToMove, out hit, radius, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(nextPositonToMove, out NavMeshHit hit, radius, NavMesh.AllAreas))
             return hit.position;
 
         return origin;

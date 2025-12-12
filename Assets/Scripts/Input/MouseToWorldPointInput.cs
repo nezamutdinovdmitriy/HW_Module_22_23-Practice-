@@ -20,7 +20,7 @@ public class MouseToWorldPointInput : IPointToMoveInput
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, _movementMask))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, _movementMask))
             {
                 hitPoint = hitInfo.point;
                 return true;

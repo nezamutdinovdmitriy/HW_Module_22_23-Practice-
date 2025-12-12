@@ -30,5 +30,16 @@ public class AudioController : MonoBehaviour
             _handler.OnSFX();
     }
 
-    public void PlayClip(AudioClip audioClip) => _SFXSource.PlayOneShot(audioClip);
+    public void PlayClip(AudioClip audioClip, AudioType type)
+    {
+        switch (type)
+        {
+            case AudioType.Music:
+                _musicSource.PlayOneShot(audioClip);
+                break;
+            case AudioType.Sfx:
+                _SFXSource.PlayOneShot(audioClip);
+                break;
+        }
+    }
 }

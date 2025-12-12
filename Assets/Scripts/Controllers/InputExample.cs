@@ -6,15 +6,18 @@ public class InputExample : MonoBehaviour
     [SerializeField] private AgentCharacter _agentCharacter;
     [SerializeField] private LayerMask _ground;
     [SerializeField] private GameObject _pointToMovePrefab;
+    [SerializeField] private MedkitSpawner _medkidSpawner;
 
     private Controller _agentCharacterController;
     private IPointToMoveInput _moveInput;
     private ISelectedPosition _pointView;
+    private DesktopInput _desktopInput;
 
     private void Awake()
     {
         _moveInput = new MouseToWorldPointInput(_camera, _ground);
         _pointView = new PointToMoveView(_pointToMovePrefab, 1f);
+        _desktopInput = new DesktopInput();
 
         _agentCharacterController = new CompositeController(
            new MovementBehaviorStateController(
@@ -23,6 +26,8 @@ public class InputExample : MonoBehaviour
            new AlongMovableVelocityRotatableController(_agentCharacter, _agentCharacter, _agentCharacter));
 
         _agentCharacterController.Enable();
+
+        _medkidSpawner.Initialize(_desktopInput);
     }
 
     private void Update()

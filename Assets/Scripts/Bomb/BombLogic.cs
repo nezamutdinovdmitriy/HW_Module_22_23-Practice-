@@ -15,6 +15,7 @@ public class BombLogic : MonoBehaviour
 
     private SphereCollider _triggerCollider;
     private bool _isActive;
+    private Coroutine _activeCoroutine;
 
     public float TimeToExplosion => _timeToExplosion;
     public float ExplosionRadius => _explosionRadius;
@@ -27,8 +28,8 @@ public class BombLogic : MonoBehaviour
 
     private void Update()
     {
-        if (_isActive)
-            StartCoroutine(ExplodeProcess(_timeToExplosion));
+        if (_isActive && _activeCoroutine == null)
+            _activeCoroutine = StartCoroutine(ExplodeProcess(_timeToExplosion));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,7 +54,7 @@ public class BombLogic : MonoBehaviour
 
         System.Array.Clear(targetsArray, 0, countTargets);
 
-        HasExploded = true;    
+        HasExploded = true;
     }
 
     private void InitializeCollider()

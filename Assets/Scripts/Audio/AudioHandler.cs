@@ -17,21 +17,17 @@ public class AudioHandler
     }
 
     public bool IsMusicOn() => IsVolumeOn(MusicKey);
-    
     public bool IsSFXOn() => IsVolumeOn(SFXKey);
 
     public void OffMusic() => OffVolume(MusicKey);
-
     public void OnMusic() => OnVolume(MusicKey);
 
     public void OffSFX() => OffVolume(SFXKey);
-
     public void OnSFX() => OnVolume(SFXKey);
 
-
-    private bool IsVolumeOn(string mixerKey) => _mixer.GetFloat(mixerKey, out float volume) && Mathf.Abs(volume - OffVolumeValue) >= 0.01f;
+    private bool IsVolumeOn(string mixerKey)
+        => _mixer.GetFloat(mixerKey, out float volume) && Mathf.Abs(volume - OffVolumeValue) >= 0.01f;
 
     private void OnVolume(string mixerKey) => _mixer.SetFloat(mixerKey, OnVolumeValue);
-
     private void OffVolume(string mixerKey) => _mixer.SetFloat(mixerKey, OffVolumeValue);
 }

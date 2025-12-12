@@ -22,14 +22,14 @@ public class AgentСharacterWanderingMoveController : Controller
 
     protected override void UpdateLogic(float deltaTime)
     {
-        if(_character.CurrentVelocity.magnitude <= DeathZone)
+        if (_character.CurrentVelocity.magnitude <= DeathZone)
             _currentTime += Time.deltaTime;
         else
             _currentTime = 0;
 
-        if(IsIdle)
+        if (IsIdle)
         {
-            if(_character.CurrentVelocity.magnitude <= DeathZone)
+            if (_character.CurrentVelocity.magnitude <= DeathZone)
             {
                 _nextPositionToMove = NavMeshUtils.GetRandomPointOnNavMesh(_character.Position, _wanderingAreaRadius);
 

@@ -195,5 +195,6 @@ MonoBehaviour:
   _bombLogic: {fileID: 3893737349599563764}
   _explosionEffectPrefab: {fileID: 6403252182692130911, guid: 4e12b3c53c0f8ee4da83655d8d2770d5,
     type: 3}
-  _bombClip: {fileID: 8300000, guid: df6393de3974ad3448b9f96dd89ef4c1, type: 3}
+  _explosionEffectClip: {fileID: 8300000, guid: df6393de3974ad3448b9f96dd89ef4c1,
+    type: 3}
   _audioController: {fileID: 0}
