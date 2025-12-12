@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PointToMoveView : ISelectedPosition
+public class PointToMoveView : ISelectedPositionView
 {
     private readonly GameObject _pointViewPrefab;
     private readonly float _destroyTimer;

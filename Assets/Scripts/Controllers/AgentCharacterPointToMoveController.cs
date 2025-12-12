@@ -5,9 +5,9 @@ public class AgentCharacterPointToMoveController : Controller
 {
     private readonly AgentCharacter _character;
     private readonly IPointToMoveInput _moveInput;
-    private readonly ISelectedPosition _pointToMoveView;
+    private readonly ISelectedPositionView _pointToMoveView;
 
-    public AgentCharacterPointToMoveController(AgentCharacter character, IPointToMoveInput moveInput, ISelectedPosition pointView)
+    public AgentCharacterPointToMoveController(AgentCharacter character, IPointToMoveInput moveInput, ISelectedPositionView pointView)
     {
         _character = character;
         _moveInput = moveInput;

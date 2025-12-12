@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface ISelectedPosition
+public interface ISelectedPositionView
 {
     public void SelectPosition(Vector3 position);
 }

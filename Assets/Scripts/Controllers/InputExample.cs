@@ -10,7 +10,7 @@ public class InputExample : MonoBehaviour
 
     private Controller _agentCharacterController;
     private IPointToMoveInput _moveInput;
-    private ISelectedPosition _pointView;
+    private ISelectedPositionView _pointView;
     private DesktopInput _desktopInput;
 
     private void Awake()
