@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 17514426}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39735967, y: -0, z: -0, w: 0.917663}
-  m_LocalPosition: {x: 209.25484, y: 214.66783, z: 124.64761}
+  m_LocalPosition: {x: 209.25484, y: 214.66783, z: 156.8276}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2019,7 +2019,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39735967, y: -0, z: -0, w: 0.917663}
-  m_LocalPosition: {x: 209.25484, y: 214.66783, z: 124.64761}
+  m_LocalPosition: {x: 209.25484, y: 214.66783, z: 156.8276}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3078,18 +3078,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508958283}
   m_CullTransparentMesh: 1
---- !u!114 &513331236 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8102332240438662540, guid: 84ab6ed619ed1a8469eafc3d3ad00f08,
-    type: 3}
-  m_PrefabInstance: {fileID: 5571435778917995413}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &536905600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3974,8 +3962,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: -0.037394524, y: 0, z: -3.7709503}
-  m_EndPoint: {x: -0.08045006, y: 0, z: 3.6314697}
+  m_StartPoint: {x: -0.037394524, y: 0, z: -4.1834335}
+  m_EndPoint: {x: -0.08045006, y: 0, z: 4.1193886}
   m_Width: 6.93
   m_CostModifier: 2
   m_Bidirectional: 1
@@ -6165,32 +6153,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.0000005, y: 4, z: 0.5300007}
   m_Center: {x: 0.00000029802322, y: 2, z: 0.0149997175}
---- !u!1 &1011421678 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8451899831606605486, guid: 84ab6ed619ed1a8469eafc3d3ad00f08,
-    type: 3}
-  m_PrefabInstance: {fileID: 5571435778917995413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1011421679 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2644640305892285152, guid: 84ab6ed619ed1a8469eafc3d3ad00f08,
     type: 3}
   m_PrefabInstance: {fileID: 5571435778917995413}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1011421684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011421678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b215d8e7f0b72914290e52d0995b3efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 2083943451}
-  _filled: {fileID: 513331236}
 --- !u!1 &1022334616
 GameObject:
   m_ObjectHideFlags: 0
@@ -12173,7 +12141,7 @@ Transform:
   m_GameObject: {fileID: 2083943448}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.05, y: 0, z: 3.34}
+  m_LocalPosition: {x: -14.05, y: 0, z: 35.52}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -12719,6 +12687,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2083943449}
     m_Modifications:
+    - target: {fileID: 2515659399969700725, guid: 84ab6ed619ed1a8469eafc3d3ad00f08,
+        type: 3}
+      propertyPath: _character
+      value: 
+      objectReference: {fileID: 2083943451}
     - target: {fileID: 2644640305892285152, guid: 84ab6ed619ed1a8469eafc3d3ad00f08,
         type: 3}
       propertyPath: m_Pivot.x
@@ -12827,11 +12800,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8451899831606605486, guid: 84ab6ed619ed1a8469eafc3d3ad00f08,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1011421684}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84ab6ed619ed1a8469eafc3d3ad00f08, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

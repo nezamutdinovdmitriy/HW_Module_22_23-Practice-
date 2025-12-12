@@ -20,7 +20,7 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
     {
         _mover = new AgentMover(_agent, _agent.speed);
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
-        _jumper = new AgentJumper(_agent, _jumpSpeed, this, _jumpCurve);
+        _jumper = new AgentJumper(_agent, _jumpSpeed, _rotationSpeed, this, _jumpCurve);
 
         CurrentHealth = _maxHealth;
 
