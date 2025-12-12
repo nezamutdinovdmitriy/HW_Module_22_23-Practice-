@@ -37,7 +37,6 @@ public class AgentJumper
     {
         Vector3 startLinkPosition = offMeshLinkData.startPos;
         Vector3 endLinkPosition = offMeshLinkData.endPos;
-
         Vector3 finalDestination = _agent.destination;
 
         float linkLenght = (endLinkPosition - startLinkPosition).magnitude;
@@ -46,13 +45,9 @@ public class AgentJumper
         Vector3 normalizedDirection = directionalToDestination.normalized;
 
         Vector3 targetJumpVector = normalizedDirection * linkLenght;
-
         Vector3 targetLerpPosition = startLinkPosition + targetJumpVector;
 
-        _agent.isStopped = true;
-
         float duration = linkLenght / _jumpSpeed;
-
         float progress = 0f;
 
         while (progress < duration)
@@ -78,8 +73,6 @@ public class AgentJumper
         }
 
         _agent.CompleteOffMeshLink();
-        
-        _agent.isStopped = false;
 
         _jumpProcess = null;
     }

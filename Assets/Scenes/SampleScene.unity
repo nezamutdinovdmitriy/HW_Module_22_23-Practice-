@@ -3962,8 +3962,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: -0.037394524, y: 0, z: -4.1834335}
-  m_EndPoint: {x: -0.08045006, y: 0, z: 4.1193886}
+  m_StartPoint: {x: -0.037394524, y: 0, z: -4.596691}
+  m_EndPoint: {x: -0.08045006, y: 0, z: 4.4724274}
   m_Width: 6.93
   m_CostModifier: 2
   m_Bidirectional: 1
@@ -12186,7 +12186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 2083943450}
   _rotationSpeed: 500
-  _jumpSpeed: 5
+  _jumpSpeed: 8
   _maxHealth: 100
   _jumpCurve:
     serializedVersion: 2
@@ -12202,7 +12202,7 @@ MonoBehaviour:
       outWeight: 0.07377049
     - serializedVersion: 3
       time: 0.5083333
-      value: 3
+      value: 2.5
       inSlope: 0.0000066023595
       outSlope: 0.0000066023595
       tangentMode: 0
