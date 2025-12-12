@@ -6371,6 +6371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 330585545}
   _agentCharacter: {fileID: 2083943451}
+  _agentCharacterView: {fileID: 1846398556}
   _ground:
     serializedVersion: 2
     m_Bits: 8
@@ -12217,7 +12218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 2083943450}
   _rotationSpeed: 500
-  _jumpSpeed: 0
+  _jumpSpeed: 5
   _maxHealth: 100
   _jumpCurve:
     serializedVersion: 2

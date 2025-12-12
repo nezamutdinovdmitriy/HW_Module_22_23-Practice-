@@ -1,24 +1,48 @@
+using System.Collections;
 using UnityEngine;
 
 public class PointToMoveView : ISelectedPositionView
 {
     private readonly GameObject _pointViewPrefab;
-    private readonly float _destroyTimer;
+    private readonly MonoBehaviour _coroutineRunner;
+    private readonly WaitForSeconds _disappearanceTimer;
 
-    private GameObject _marker;
-    public PointToMoveView(GameObject pointViewPrefab, float destroyTimer)
+    private GameObject _moveMarker;
+
+    private Coroutine _disappearanceCoroutine;
+
+    public PointToMoveView(GameObject pointViewPrefab, float disappearanceTime, MonoBehaviour coroutineRunner)
     {
         _pointViewPrefab = pointViewPrefab;
-        _destroyTimer = destroyTimer;
+        _disappearanceTimer = new WaitForSeconds(disappearanceTime);
+        _coroutineRunner = coroutineRunner;
+
+        CreateMarker();
     }
 
     public void SelectPosition(Vector3 position)
     {
-        if (_marker != null)
-            GameObject.Destroy(_marker);
+        if (_moveMarker.activeSelf == true && _disappearanceCoroutine != null)
+        {
+            _coroutineRunner.StopCoroutine(_disappearanceCoroutine);
+            _moveMarker.SetActive(false);
+        }
 
-        _marker = GameObject.Instantiate(_pointViewPrefab, position, Quaternion.identity);
+        _moveMarker.SetActive(true);
+        _moveMarker.transform.position = position;
 
-        GameObject.Destroy(_marker, _destroyTimer);
+        _disappearanceCoroutine = _coroutineRunner.StartCoroutine(HidePointAfterDelay());
+    }
+
+    private IEnumerator HidePointAfterDelay()
+    {
+        yield return _disappearanceTimer;
+        _moveMarker.SetActive(false);
+    }
+
+    private void CreateMarker()
+    {
+        _moveMarker = GameObject.Instantiate(_pointViewPrefab, Vector3.zero, Quaternion.identity, null);
+        _moveMarker.SetActive(false);
     }
 }

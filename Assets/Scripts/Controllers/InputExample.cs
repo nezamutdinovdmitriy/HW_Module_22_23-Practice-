@@ -4,6 +4,7 @@ public class InputExample : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private AgentCharacter _agentCharacter;
+    [SerializeField] private AgentCharacterView _agentCharacterView;
     [SerializeField] private LayerMask _ground;
     [SerializeField] private GameObject _pointToMovePrefab;
     [SerializeField] private MedkitSpawner _medkidSpawner;
@@ -16,7 +17,7 @@ public class InputExample : MonoBehaviour
     private void Awake()
     {
         _moveInput = new MouseToWorldPointInput(_camera, _ground);
-        _pointView = new PointToMoveView(_pointToMovePrefab, 1f);
+        _pointView = new PointToMoveView(_pointToMovePrefab, 1f, _agentCharacterView);
         _desktopInput = new DesktopInput();
 
         _agentCharacterController = new CompositeController(
