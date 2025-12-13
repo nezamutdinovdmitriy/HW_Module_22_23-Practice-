@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AgentCharacterView : MonoBehaviour
@@ -5,6 +6,7 @@ public class AgentCharacterView : MonoBehaviour
     private const float CriticalHealthThreshold = 0.3f;
     private const float MaxLayerWeight = 1f;
     private const float MinLayerWeight = 0f;
+    private const string EdgeKey = "_Edge";
 
     private readonly int _velocityKey = Animator.StringToHash("VelocityX");
     private readonly int _isAliveKey = Animator.StringToHash("IsAlive");
@@ -17,6 +19,11 @@ public class AgentCharacterView : MonoBehaviour
     [SerializeField] private float smoothTime = 0.25f;
     [SerializeField] private float _injuredFadeSpeed = 5.0f;
     [SerializeField] private float _hitLayerStep = 0.50f;
+    
+    [SerializeField] private SkinnedMeshRenderer _skinRender;
+    
+    [SerializeField] private float _dessolveTime = 2f;
+
 
     private float _currentVelocity;
     private float _velocitySmooth;
@@ -85,8 +92,27 @@ public class AgentCharacterView : MonoBehaviour
 
     public void StartProcessResetLayerWeight() => _isStartedProcessResetLayerWeight = true;
 
+    public void ShowDeathEffect() => StartCoroutine(DissolveProcess(_dessolveTime));
+
     private void ResetLayerWeight(int layerIndex)
     {
         _animator.SetLayerWeight(layerIndex, _animator.GetLayerWeight(layerIndex) - _hitLayerStep * Time.deltaTime);
+    }
+
+    private IEnumerator DissolveProcess(float dessolveTime)
+    {
+        float process = 0;
+
+        while (process <= dessolveTime)
+        {
+            foreach (Material material in _skinRender.materials)
+                material.SetFloat( EdgeKey, process / dessolveTime);
+
+            process += Time.deltaTime;
+
+            yield return null;
+        }
+
+        Destroy(_character.gameObject);
     }
 }

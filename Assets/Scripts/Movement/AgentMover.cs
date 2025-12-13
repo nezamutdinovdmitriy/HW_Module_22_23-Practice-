@@ -5,7 +5,16 @@ public class AgentMover
 {
     private readonly NavMeshAgent _agent;
 
-    public Vector3 CurrentVelocity => _agent.desiredVelocity;
+    public Vector3 CurrentVelocity
+    {
+        get
+        {
+            if (_agent == null)
+                return Vector3.zero;
+
+            return _agent.desiredVelocity;
+        }
+    }
 
     public AgentMover(NavMeshAgent agent, float movementSpeed)
     {
@@ -14,7 +23,21 @@ public class AgentMover
         _agent.acceleration = 999;
     }
 
-    public void SetDestination(Vector3 position) => _agent.SetDestination(position);
-    public void Stop() => _agent.isStopped = true;
-    public void Resume() => _agent.isStopped = false;
+    public void SetDestination(Vector3 position)
+    {
+        if (_agent != null)
+            _agent.SetDestination(position);
+    }
+
+    public void Stop()
+    {
+        if (_agent != null)
+            _agent.isStopped = true;
+    }
+
+    public void Resume()
+    {
+        if (_agent != null)
+            _agent.isStopped = false;
+    }
 }

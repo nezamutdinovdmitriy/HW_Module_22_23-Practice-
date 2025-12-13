@@ -20,6 +20,9 @@ public class AgentCharacterPointToMoveController : Controller
 
     protected override void UpdateLogic(float deltaTime)
     {
+        if(_character == null)
+            return;
+
         if (_character.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
         {
             Vector3 jumpDirection = offMeshLinkData.endPos - _character.Position;

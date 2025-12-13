@@ -22,6 +22,9 @@ public class AgentСharacterWanderingMoveController : Controller
 
     protected override void UpdateLogic(float deltaTime)
     {
+        if (_character == null)
+            return;
+
         if (_character.CurrentVelocity.magnitude <= DeathZone)
             _currentTime += Time.deltaTime;
         else
