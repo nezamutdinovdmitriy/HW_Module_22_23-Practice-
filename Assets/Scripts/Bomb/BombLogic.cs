@@ -14,11 +14,11 @@ public class BombLogic : MonoBehaviour
     [SerializeField] private LayerMask _mask;
 
     private SphereCollider _triggerCollider;
-    private bool _isActive;
     private Coroutine _activeCoroutine;
 
     public float TimeToExplosion => _timeToExplosion;
     public float ExplosionRadius => _explosionRadius;
+    public bool IsActive { get; private set; }
     public bool HasExploded { get; private set; }
 
     private void Awake()
@@ -28,14 +28,14 @@ public class BombLogic : MonoBehaviour
 
     private void Update()
     {
-        if (_isActive && _activeCoroutine == null)
+        if (IsActive && _activeCoroutine == null)
             _activeCoroutine = StartCoroutine(ExplodeProcess(_timeToExplosion));
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<IDamageable>() != null)
-            _isActive = true;
+            IsActive = true;
     }
 
     private IEnumerator ExplodeProcess(float timeToExplosion)
