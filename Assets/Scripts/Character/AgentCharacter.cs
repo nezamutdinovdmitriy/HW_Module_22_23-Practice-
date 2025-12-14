@@ -16,6 +16,18 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
     private DirectionalRotator _rotator;
     private AgentJumper _jumper;
 
+    public Vector3 Position => transform.position;
+    public Vector3 CurrentVelocity => _mover.CurrentVelocity;
+    public Quaternion CurrentRotation => transform.rotation;
+
+    public float MoveSpeed => _agent.speed;
+
+    public bool InJumpProcess => _jumper.InProcessJump;
+
+    public float MaxHealth => _maxHealth;
+    public float CurrentHealth { get; private set; }
+    public bool IsAlive => CurrentHealth > 0;
+
     private void Awake()
     {
         _mover = new AgentMover(_agent, _agent.speed);
@@ -26,19 +38,6 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
 
         _agent.updateRotation = false;
     }
-
-    public Vector3 Position => transform.position;
-    public Vector3 CurrentVelocity => _mover.CurrentVelocity;
-
-    public Quaternion CurrentRotation => transform.rotation;
-
-    public float MaxHealth => _maxHealth;
-    public float CurrentHealth { get; private set; }
-    public bool IsAlive => CurrentHealth > 0;
-
-    public float MoveSpeed => _agent.speed;
-
-    public bool InJumpProcess => _jumper.InProcessJump;
 
     private void Update()
     {
