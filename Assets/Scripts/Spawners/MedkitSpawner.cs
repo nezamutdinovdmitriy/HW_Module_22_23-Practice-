@@ -31,14 +31,14 @@ public class MedkitSpawner : MonoBehaviour
                 if (_spawnCoroutine != null)
                     StopCoroutine(_spawnCoroutine);
 
-                Debug.Log("Спавнер аптечек включен!");
+                Debug.Log("Спавнер аптечек выключен!");
             }
             else
             {
                 _isActive = true;
                 _spawnCoroutine = StartCoroutine(SpawnProcess(_cooldownTime));
 
-                Debug.Log("Спавнер аптечек выключен!");
+                Debug.Log("Спавнер аптечек включен!");
             }
         }
     }
