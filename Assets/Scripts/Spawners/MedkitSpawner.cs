@@ -30,11 +30,15 @@ public class MedkitSpawner : MonoBehaviour
 
                 if (_spawnCoroutine != null)
                     StopCoroutine(_spawnCoroutine);
+
+                Debug.Log("Спавнер аптечек включен!");
             }
             else
             {
                 _isActive = true;
                 _spawnCoroutine = StartCoroutine(SpawnProcess(_cooldownTime));
+
+                Debug.Log("Спавнер аптечек выключен!");
             }
         }
     }
@@ -46,6 +50,7 @@ public class MedkitSpawner : MonoBehaviour
             yield return new WaitForSeconds(cooldownTime);
 
             Vector3 spawnPoint = NavMeshUtils.GetRandomPointOnNavMesh(_target.position, _spawnRadiusForTarget);
+            spawnPoint.y = 1f;
 
             Medkit item = Instantiate(_medkitPrefab, spawnPoint, Quaternion.identity, null);
 

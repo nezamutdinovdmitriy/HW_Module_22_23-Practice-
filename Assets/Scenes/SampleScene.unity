@@ -1660,11 +1660,11 @@ RectTransform:
   - {fileID: 586759325}
   m_Father: {fileID: 1378814318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -698, y: -456}
-  m_SizeDelta: {x: 385.7748, y: 72.3328}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.0132708335, y: 0.023148147}
+  m_AnchorMax: {x: 0.21366666, y: 0.091629624}
+  m_AnchoredPosition: {x: 1, y: 2}
+  m_SizeDelta: {x: 1.7747803, y: -1.6672058}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &303245551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2984,10 +2984,10 @@ RectTransform:
   - {fileID: 1631860510}
   m_Father: {fileID: 1378814318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -281.90002, y: -456}
-  m_SizeDelta: {x: 385.7748, y: 72.3328}
+  m_AnchorMin: {x: 0.23247917, y: 0.023148147}
+  m_AnchorMax: {x: 0.43114582, y: 0.091629624}
+  m_AnchoredPosition: {x: -0.5, y: 0.5}
+  m_SizeDelta: {x: 4.7747803, y: -2.6672058}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &508958285
 MonoBehaviour:
@@ -3786,7 +3786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f98ffffb91e6c4daefcb10076fca82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _medkitPrefab: {fileID: 7420762369158483335, guid: ec6dffe77219da641abac7f6224c6fb9,
+  _medkitPrefab: {fileID: 3657079989026225440, guid: ec6dffe77219da641abac7f6224c6fb9,
     type: 3}
   _target: {fileID: 2083943449}
   _spawnRadiusForTarget: 10
