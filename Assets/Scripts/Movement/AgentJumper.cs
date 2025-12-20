@@ -35,7 +35,7 @@ public class AgentJumper
 
     private IEnumerator JumpProcess(OffMeshLinkData offMeshLinkData)
     {
-        Vector3 startLinkPosition = offMeshLinkData.startPos;
+        Vector3 startLinkPosition = _agent.transform.position;
         Vector3 endLinkPosition = offMeshLinkData.endPos;
         Vector3 finalDestination = _agent.destination;
 
