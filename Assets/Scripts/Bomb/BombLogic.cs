@@ -26,16 +26,12 @@ public class BombLogic : MonoBehaviour
         InitializeCollider();
     }
 
-    private void Update()
-    {
-        if (IsActive && _activeCoroutine == null)
-            _activeCoroutine = StartCoroutine(ExplodeProcess(_timeToExplosion));
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<IDamageable>() != null)
             IsActive = true;
+
+        _activeCoroutine = StartCoroutine(ExplodeProcess(_timeToExplosion));
     }
 
     private IEnumerator ExplodeProcess(float timeToExplosion)
