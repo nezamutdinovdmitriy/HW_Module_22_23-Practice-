@@ -16,7 +16,7 @@ public class BombView : MonoBehaviour
     [SerializeField] private AudioController _audioController;
 
     private Vector3 _newParticleScale;
-    private bool _activeMaterialApplied = false;
+    private bool _activeMaterialApplied;
     private MeshRenderer _meshRenderer;
 
     private void Awake()

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioController : MonoBehaviour
+public class AudioController : MonoBehaviour, IInitializable
 {
     [SerializeField] private AudioMixer _mixer;
     [SerializeField] private AudioSource _musicSource;
@@ -9,7 +9,7 @@ public class AudioController : MonoBehaviour
 
     private AudioHandler _handler;
 
-    private void Awake()
+    public void Initialize()
     {
         _handler = new AudioHandler(_mixer);
     }

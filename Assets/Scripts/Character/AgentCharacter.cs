@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectionalMovable, IHealth, IDamageable, IHealable
+public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectionalMovable, IHealth, IDamageable, IHealable, IJumper
 {
     [SerializeField] private NavMeshAgent _agent;
 
@@ -12,9 +12,13 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
 
     [SerializeField] AnimationCurve _jumpCurve;
 
+    [SerializeField] private Transform _cameraTarget;
+
     private AgentMover _mover;
     private DirectionalRotator _rotator;
     private AgentJumper _jumper;
+
+    private bool _isInit;
 
     public Vector3 Position => transform.position;
     public Vector3 CurrentVelocity => _mover.CurrentVelocity;
@@ -28,7 +32,10 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
     public float CurrentHealth { get; private set; }
     public bool IsAlive => CurrentHealth > 0;
 
-    private void Awake()
+    public Transform CameraTarget => _cameraTarget;
+
+
+    public void Initialize()
     {
         _mover = new AgentMover(_agent, _agent.speed);
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
@@ -37,19 +44,23 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
         CurrentHealth = _maxHealth;
 
         _agent.updateRotation = false;
+
+        foreach (IInitializable initializable in GetComponentsInChildren<IInitializable>())
+            initializable.Initialize();
+
+        _isInit = true;
     }
 
     private void Update()
     {
+        if (_isInit == false)
+            return;
+
         if (IsAlive == false)
             return;
 
         _rotator.Update(Time.deltaTime);
     }
-
-    public void SetDestination(Vector3 position) => _mover.SetDestination(position);
-    public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
-    public void SetMoveDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
 
     public void TakeDamage(float damageAmount)
     {
@@ -80,4 +91,8 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
         offMeshLinkData = default;
         return false;
     }
+
+    public void SetDestination(Vector3 position) => _mover.SetDestination(position);
+    public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
+    public void SetMoveDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
 }

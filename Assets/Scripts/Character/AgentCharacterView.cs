@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class AgentCharacterView : MonoBehaviour
+public class AgentCharacterView : MonoBehaviour, IInitializable
 {
     private const float CriticalHealthThreshold = 0.3f;
     private const float MaxLayerWeight = 1f;
@@ -19,9 +19,9 @@ public class AgentCharacterView : MonoBehaviour
     [SerializeField] private float smoothTime = 0.25f;
     [SerializeField] private float _injuredFadeSpeed = 5.0f;
     [SerializeField] private float _hitLayerStep = 0.50f;
-    
+
     [SerializeField] private SkinnedMeshRenderer _skinRender;
-    
+
     [SerializeField] private float _dessolveTime = 2f;
 
 
@@ -35,18 +35,26 @@ public class AgentCharacterView : MonoBehaviour
 
     private bool _isStartedProcessResetLayerWeight;
 
+    private bool _isInit;
+
     private bool IsTakingDamage => _prevHealthValue > _character.CurrentHealth;
 
-    private void Start()
+
+    public void Initialize()
     {
         _prevHealthValue = _character.CurrentHealth;
 
         _injerdLayerIndex = _animator.GetLayerIndex("Injured Layer");
         _hitLayerIndex = _animator.GetLayerIndex("Hit Layer");
+
+        _isInit = true;
     }
 
     private void Update()
     {
+        if (_isInit == false)
+            return;
+
         float targetVelocity = Mathf.Clamp01(_character.CurrentVelocity.magnitude / _character.MoveSpeed);
 
         _currentVelocity = Mathf.SmoothDamp(_currentVelocity, targetVelocity, ref _velocitySmooth, smoothTime);
@@ -81,6 +89,9 @@ public class AgentCharacterView : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (_isInit == false)
+            return;
+
         if (IsTakingDamage)
         {
             _animator.SetLayerWeight(_hitLayerIndex, MaxLayerWeight);
@@ -106,7 +117,7 @@ public class AgentCharacterView : MonoBehaviour
         while (process <= dessolveTime)
         {
             foreach (Material material in _skinRender.materials)
-                material.SetFloat( EdgeKey, process / dessolveTime);
+                material.SetFloat(EdgeKey, process / dessolveTime);
 
             process += Time.deltaTime;
 
