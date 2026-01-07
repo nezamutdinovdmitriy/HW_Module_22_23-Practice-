@@ -14,6 +14,15 @@ public class MainHeroSpawner : MonoBehaviour
     private IPointToMoveInput _moveInput;
     private ISelectedPositionView _pointView;
 
+    private ControllersUpdateService _controllersUpdateService;
+    private ControllersFactory _controllersFactory;
+
+    public void Initialize(ControllersUpdateService controllersUpdateService, ControllersFactory controllersFactory)
+    {
+        _controllersUpdateService = controllersUpdateService;
+        _controllersFactory = controllersFactory;
+    }
+
     public AgentCharacter Spawn()
     {
         AgentCharacter instance = Instantiate(_prefab, _spawnPoint.position, Quaternion.identity, null);
@@ -25,19 +34,12 @@ public class MainHeroSpawner : MonoBehaviour
         _moveInput = new MouseToWorldPointInput(Camera.main, _ground);
         _pointView = new PointToMoveView(_pointToMovePrefab, 1f, this);
 
-        _controller = new CompositeController(
-           new MovementBehaviorStateController(
-               new AgentCharacterPointToMoveController(instance, _moveInput, _pointView),
-               new AgentСharacterWanderingMoveController(instance, 30f, 15f)),
-           new AlongMovableVelocityRotatableController(instance, instance, instance));
+        _controller = _controllersFactory.CreateMainHeroController(instance, 15, 50, _moveInput, _pointView);
 
         _controller.Enable();
 
-        return instance;
-    }
+        _controllersUpdateService.Add(_controller);
 
-    private void Update()
-    {
-        _controller.Update(Time.deltaTime);
+        return instance;
     }
 }

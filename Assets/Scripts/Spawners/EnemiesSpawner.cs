@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,6 +10,13 @@ public class EnemiesSpawner : MonoBehaviour
     [SerializeField] private int _count;
 
     private List<Controller> _controllers = new();
+
+    private ControllersUpdateService _controllersUpdateService;
+
+    public void Initialize(ControllersUpdateService controllersUpdateService)
+    {
+        _controllersUpdateService = controllersUpdateService;
+    }
 
     public void Spawn(Transform target)
     {

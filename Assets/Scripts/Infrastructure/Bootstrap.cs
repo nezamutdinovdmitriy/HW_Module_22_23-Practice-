@@ -14,6 +14,8 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private AudioController _audioController;
 
     private DesktopInput _desktopInput;
+    private ControllersUpdateService _controllersUpdateService;
+    private ControllersFactory _controllersFactory;
 
     private void Awake()
     {
@@ -28,7 +30,11 @@ public class Bootstrap : MonoBehaviour
         _desktopInput = new DesktopInput();
         _audioController.Initialize();
 
-        AgentCharacter mainHero = _mainHeroSpawner.Spawn();
+        _controllersUpdateService = new ControllersUpdateService();
+        _controllersFactory = new ControllersFactory();
+
+        _mainHeroSpawner.Initialize(_controllersUpdateService, _controllersFactory);
+        _mainHeroSpawner.Spawn();
 
         _medkitSpawner.Initialize(_desktopInput);
 
@@ -45,5 +51,10 @@ public class Bootstrap : MonoBehaviour
         //_confirmPopup.Hide();
 
         //_enemiesSpawner.Spawn(mainHero.transform);
+    }
+
+    private void Update()
+    {
+        _controllersUpdateService?.Update(Time.deltaTime);
     }
 }
