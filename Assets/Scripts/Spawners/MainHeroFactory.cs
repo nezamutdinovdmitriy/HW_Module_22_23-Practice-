@@ -17,7 +17,6 @@ public class MainHeroFactory
 
     public AgentCharacter CreateAgentMainHero(MainHeroConfig config,
         Vector3 spawnPosition,
-        CinemachineVirtualCamera followCamera, 
         IPointToMoveInput moveInput, 
         ISelectedPositionView pointView,
         LayerMask ground,
@@ -32,6 +31,10 @@ public class MainHeroFactory
             config.JumpSpeed,
             config.JumpCurve,
             config.MaxHealth);
+
+        CinemachineVirtualCamera followCameraPrefab = Resources.Load<CinemachineVirtualCamera>("Follow Camera");
+
+        CinemachineVirtualCamera followCamera = Object.Instantiate(followCameraPrefab);
 
         followCamera.Follow = instance.CameraTarget;
 

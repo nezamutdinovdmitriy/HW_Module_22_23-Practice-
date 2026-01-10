@@ -1,14 +1,8 @@
-using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
-    [SerializeField] private float _radius;
-    [SerializeField] private int _count;
-
-    [SerializeField] private CinemachineVirtualCamera _followCamera;
-    [SerializeField] private Transform _spawnPoint;
     [SerializeField] private LayerMask _ground;
     [SerializeField] private GameObject _pointToMovePrefab;
 
@@ -28,10 +22,7 @@ public class Bootstrap : MonoBehaviour
     private ControllersFactory _controllersFactory;
     private CharactersFactory _charactersFactory;
 
-    private void Awake()
-    {
-        StartCoroutine(StartProcess());
-    }
+    private void Awake() => StartCoroutine(StartProcess());
 
     private IEnumerator StartProcess()
     {
@@ -39,7 +30,8 @@ public class Bootstrap : MonoBehaviour
         _loadingScreen.ShowMessage("Loading...");
 
         MainHeroConfig heroConfig = Resources.Load<MainHeroConfig>("Configs/MainHeroConfig");
-        AgentEnemyConfig enemyConfig = Resources.Load<AgentEnemyConfig>("Configs/AgentEnemyConfig");
+        
+        LevelsListConfig levelsListConfig = Resources.Load<LevelsListConfig>("Configs/LevelsListConfig");
 
         _desktopInput = new DesktopInput();
         _audioController.Initialize();
@@ -54,7 +46,9 @@ public class Bootstrap : MonoBehaviour
 
         EnemiesSpawner enemiesSpawner = new EnemiesSpawner(enemiesFactory);
 
-        AgentCharacter mainHero = mainHeroFactory.CreateAgentMainHero(heroConfig, _spawnPoint.position, _followCamera, _moveInput, _pointView, _ground, _pointToMovePrefab);
+        LevelConfig levelConfig = levelsListConfig.GetRandomConfig();
+
+        AgentCharacter mainHero = mainHeroFactory.CreateAgentMainHero(heroConfig, levelConfig.MainHeroStartPosition, _moveInput, _pointView, _ground, _pointToMovePrefab);
 
         _medkitSpawner.Initialize(_desktopInput);
 
@@ -69,7 +63,7 @@ public class Bootstrap : MonoBehaviour
 
         _confirmPopup.Hide();
 
-        enemiesSpawner.Spawn(enemyConfig, mainHero.transform, _radius, _count);
+        enemiesSpawner.Spawn(levelConfig.EnemyConfig, mainHero.transform, levelConfig.EnemiesSpawnRange, levelConfig.EnemiesCount);
     }
 
     private void Update()
