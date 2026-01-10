@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectionalMovable, IHealth, IDamageable, IHealable, IJumper
+public class AgentCharacter : MonoDestroyable, IDirectionalRotatable, IDirectionalMovable, IHealth, IDamageable, IHealable, IJumper
 {
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Transform _cameraTarget;

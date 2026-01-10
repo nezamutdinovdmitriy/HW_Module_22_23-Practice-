@@ -45,7 +45,7 @@ public class MainHeroFactory
 
         controller.Enable();
 
-        _controllersUpdateService.Add(controller);
+        _controllersUpdateService.Add(controller, () => instance.IsDestroyed);
 
         return instance;
     }

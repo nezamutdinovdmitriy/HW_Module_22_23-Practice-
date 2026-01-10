@@ -18,11 +18,16 @@ public class Bootstrap : MonoBehaviour
 
     private DesktopInput _desktopInput;
     private ControllersUpdateService _controllersUpdateService;
-    
+
+    private GameMode _gameMode;
+
     private ControllersFactory _controllersFactory;
     private CharactersFactory _charactersFactory;
 
-    private void Awake() => StartCoroutine(StartProcess());
+    private void Awake()
+    {
+        StartCoroutine(StartProcess());
+    }
 
     private IEnumerator StartProcess()
     {
@@ -50,6 +55,8 @@ public class Bootstrap : MonoBehaviour
 
         AgentCharacter mainHero = mainHeroFactory.CreateAgentMainHero(heroConfig, levelConfig.MainHeroStartPosition, _moveInput, _pointView, _ground, _pointToMovePrefab);
 
+        _gameMode = new GameMode(levelConfig, mainHero, enemiesSpawner);
+
         _medkitSpawner.Initialize(_desktopInput);
 
         yield return new WaitForSeconds(2f);
@@ -63,11 +70,12 @@ public class Bootstrap : MonoBehaviour
 
         _confirmPopup.Hide();
 
-        enemiesSpawner.Spawn(levelConfig.EnemyConfig, mainHero.transform, levelConfig.EnemiesSpawnRange, levelConfig.EnemiesCount);
+        _gameMode.Start();
     }
 
     private void Update()
     {
         _controllersUpdateService?.Update(Time.deltaTime);
+        _gameMode?.Update(Time.deltaTime);
     }
 }
