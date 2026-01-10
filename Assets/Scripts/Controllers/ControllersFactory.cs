@@ -46,4 +46,14 @@ public class ControllersFactory
                 CreateAgentСharacterWanderingMoveController(character, timeToWanderStart, wanderingAreaRarius)),
             CreateAlongMovableVelocityRotatableController(character, character, character));
     }
+
+    public AgentCharacterAgroController CreateAgentCharacterAgroController(
+        AgentCharacter character, 
+        Transform target, 
+        float agroRange, 
+        float minDistanceToTarget, 
+        float timeForIdle)
+    {
+        return new AgentCharacterAgroController(character, target, agroRange, minDistanceToTarget, timeForIdle);
+    }
 }

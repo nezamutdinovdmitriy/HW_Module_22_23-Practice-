@@ -15,7 +15,9 @@ public class Bootstrap : MonoBehaviour
 
     private DesktopInput _desktopInput;
     private ControllersUpdateService _controllersUpdateService;
+    
     private ControllersFactory _controllersFactory;
+    private CharactersFactory _charactersFactory;
 
     private void Awake()
     {
@@ -31,26 +33,29 @@ public class Bootstrap : MonoBehaviour
         _audioController.Initialize();
 
         _controllersUpdateService = new ControllersUpdateService();
+        
         _controllersFactory = new ControllersFactory();
+        _charactersFactory = new CharactersFactory();
 
-        _mainHeroSpawner.Initialize(_controllersUpdateService, _controllersFactory);
-        _mainHeroSpawner.Spawn();
+        _mainHeroSpawner.Initialize(_controllersUpdateService, _controllersFactory, _charactersFactory);
+        _enemiesSpawner.Initialize(_controllersUpdateService, _controllersFactory);
+
+        AgentCharacter mainHero = _mainHeroSpawner.Spawn();
 
         _medkitSpawner.Initialize(_desktopInput);
-
 
         yield return new WaitForSeconds(2f);
 
         _loadingScreen.Hide();
 
-        //_confirmPopup.Show();
-        //_confirmPopup.ShowMessage($"PRESS {KeyCode.R.ToString()} FOR BEGIN");
+        _confirmPopup.Show();
+        _confirmPopup.ShowMessage($"PRESS {KeyCode.R.ToString()} FOR BEGIN");
 
-        //yield return _confirmPopup.WaitConfirm(KeyCode.R);
+        yield return _confirmPopup.WaitConfirm(KeyCode.R);
 
-        //_confirmPopup.Hide();
+        _confirmPopup.Hide();
 
-        //_enemiesSpawner.Spawn(mainHero.transform);
+        _enemiesSpawner.Spawn(mainHero.transform);
     }
 
     private void Update()

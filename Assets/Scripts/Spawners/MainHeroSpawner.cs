@@ -15,19 +15,28 @@ public class MainHeroSpawner : MonoBehaviour
     private ISelectedPositionView _pointView;
 
     private ControllersUpdateService _controllersUpdateService;
+    
     private ControllersFactory _controllersFactory;
+    private CharactersFactory _charactersFactory;
 
-    public void Initialize(ControllersUpdateService controllersUpdateService, ControllersFactory controllersFactory)
+    public void Initialize(ControllersUpdateService controllersUpdateService, ControllersFactory controllersFactory, CharactersFactory charactersFactory)
     {
         _controllersUpdateService = controllersUpdateService;
+        
         _controllersFactory = controllersFactory;
+        _charactersFactory = charactersFactory;
     }
 
     public AgentCharacter Spawn()
     {
-        AgentCharacter instance = Instantiate(_prefab, _spawnPoint.position, Quaternion.identity, null);
-
-        instance.Initialize();
+        AgentCharacter instance = _charactersFactory.CreateAgentCharacter(
+            _prefab, 
+            _spawnPoint.position,
+            9, 
+            900, 
+            5, 
+            new AnimationCurve(new Keyframe(0,0), new Keyframe(1,0)),
+            100);
 
         _followCamera.Follow = instance.CameraTarget;
 

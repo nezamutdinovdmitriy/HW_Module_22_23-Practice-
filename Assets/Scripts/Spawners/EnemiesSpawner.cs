@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -9,13 +8,13 @@ public class EnemiesSpawner : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private int _count;
 
-    private List<Controller> _controllers = new();
-
     private ControllersUpdateService _controllersUpdateService;
+    private ControllersFactory _controllersFactory;
 
-    public void Initialize(ControllersUpdateService controllersUpdateService)
+    public void Initialize(ControllersUpdateService controllersUpdateService, ControllersFactory controllersFactory)
     {
         _controllersUpdateService = controllersUpdateService;
+        _controllersFactory = controllersFactory;
     }
 
     public void Spawn(Transform target)
@@ -41,17 +40,13 @@ public class EnemiesSpawner : MonoBehaviour
 
             AgentCharacter instance = Instantiate(_prefab, spawnPosition.position, Quaternion.identity, null);
 
-            //Controller controller создание контроллера который будет отвечать за логику врага
+            instance.Initialize();
 
-            //controller.Enable();
+            Controller controller = _controllersFactory.CreateAgentCharacterAgroController(instance, target, 5, 3, 1);
 
-            //_controllers.Add(controller);
+            controller.Enable();
+
+            _controllersUpdateService.Add(controller);
         }
-    }
-
-    private void Update()
-    {
-        foreach (Controller controller in _controllers)
-            controller.Update(Time.deltaTime);
     }
 }

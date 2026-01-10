@@ -4,15 +4,9 @@ using UnityEngine.AI;
 public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectionalMovable, IHealth, IDamageable, IHealable, IJumper
 {
     [SerializeField] private NavMeshAgent _agent;
-
-    [SerializeField] private float _rotationSpeed;
-    [SerializeField] private float _jumpSpeed;
-
-    [SerializeField] private float _maxHealth;
-
-    [SerializeField] AnimationCurve _jumpCurve;
-
     [SerializeField] private Transform _cameraTarget;
+    
+    private float _maxHealth;
 
     private AgentMover _mover;
     private DirectionalRotator _rotator;
@@ -35,15 +29,16 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
     public Transform CameraTarget => _cameraTarget;
 
 
-    public void Initialize()
+    public void Initialize(NavMeshAgent agent, AgentMover mover, DirectionalRotator rotator, AgentJumper jumper, float maxHealth)
     {
-        _mover = new AgentMover(_agent, _agent.speed);
-        _rotator = new DirectionalRotator(transform, _rotationSpeed);
-        _jumper = new AgentJumper(_agent, _jumpSpeed, _rotationSpeed, this, _jumpCurve);
-
+        _agent = agent;
+        
+        _mover = mover;
+        _rotator = rotator;
+        _jumper = jumper;
+        
+        _maxHealth = maxHealth;
         CurrentHealth = _maxHealth;
-
-        _agent.updateRotation = false;
 
         foreach (IInitializable initializable in GetComponentsInChildren<IInitializable>())
             initializable.Initialize();
@@ -87,12 +82,16 @@ public class AgentCharacter : MonoBehaviour, IDirectionalRotatable, IDirectional
             offMeshLinkData = _agent.currentOffMeshLinkData;
             return true;
         }
-
+        
         offMeshLinkData = default;
         return false;
     }
 
     public void SetDestination(Vector3 position) => _mover.SetDestination(position);
+    public void StopMove() => _mover.Stop();
+    public void ResumeMove() => _mover.Resume();
+    public bool TryGetPath(Vector3 targetPosition, NavMeshPath pathToTarget) => NavMeshUtils.TryGetPath(_agent, targetPosition, pathToTarget);
+
     public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
     public void SetMoveDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
 }
