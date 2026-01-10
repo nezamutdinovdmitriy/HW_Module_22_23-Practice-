@@ -4,17 +4,15 @@ using Random = UnityEngine.Random;
 
 public class EnemiesSpawner : MonoBehaviour
 {
-    [SerializeField] private AgentCharacter _prefab;
+    [SerializeField] private AgentEnemyConfig _config;
     [SerializeField] private float _radius;
     [SerializeField] private int _count;
 
-    private ControllersUpdateService _controllersUpdateService;
-    private ControllersFactory _controllersFactory;
+    private EnemiesFactory _enemiesFactory;
 
-    public void Initialize(ControllersUpdateService controllersUpdateService, ControllersFactory controllersFactory)
+    public void Initialize(EnemiesFactory enemiesFactory)
     {
-        _controllersUpdateService = controllersUpdateService;
-        _controllersFactory = controllersFactory;
+        _enemiesFactory = enemiesFactory;
     }
 
     public void Spawn(Transform target)
@@ -38,15 +36,7 @@ public class EnemiesSpawner : MonoBehaviour
 
             } while (NavMesh.SamplePosition(positionAroundTarget, out spawnPosition, 0.1f, queryFilter) == false);
 
-            AgentCharacter instance = Instantiate(_prefab, spawnPosition.position, Quaternion.identity, null);
-
-            instance.Initialize();
-
-            Controller controller = _controllersFactory.CreateAgentCharacterAgroController(instance, target, 5, 3, 1);
-
-            controller.Enable();
-
-            _controllersUpdateService.Add(controller);
+            _enemiesFactory.CreateAgentEnemy(_config, spawnPosition.position, target);
         }
     }
 }

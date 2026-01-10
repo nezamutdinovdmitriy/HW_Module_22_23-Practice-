@@ -37,8 +37,11 @@ public class Bootstrap : MonoBehaviour
         _controllersFactory = new ControllersFactory();
         _charactersFactory = new CharactersFactory();
 
-        _mainHeroSpawner.Initialize(_controllersUpdateService, _controllersFactory, _charactersFactory);
-        _enemiesSpawner.Initialize(_controllersUpdateService, _controllersFactory);
+        MainHeroFactory mainHeroFactory = new MainHeroFactory(_controllersUpdateService, _controllersFactory, _charactersFactory);
+        EnemiesFactory enemiesFactory = new EnemiesFactory(_controllersUpdateService, _controllersFactory, _charactersFactory);
+
+        _mainHeroSpawner.Initialize(mainHeroFactory);
+        _enemiesSpawner.Initialize(enemiesFactory);
 
         AgentCharacter mainHero = _mainHeroSpawner.Spawn();
 
