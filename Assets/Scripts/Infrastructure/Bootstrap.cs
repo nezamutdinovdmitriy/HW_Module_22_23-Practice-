@@ -6,9 +6,6 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private LayerMask _ground;
     [SerializeField] private GameObject _pointToMovePrefab;
 
-    private IPointToMoveInput _moveInput;
-    private ISelectedPositionView _pointView;
-
     [SerializeField] private MedkitSpawner _medkitSpawner;
 
     [SerializeField] private LoadingScreen _loadingScreen;
@@ -16,18 +13,18 @@ public class Bootstrap : MonoBehaviour
 
     [SerializeField] private AudioController _audioController;
 
+    private IPointToMoveInput _moveInput;
+    private ISelectedPositionView _pointView;
+
     private DesktopInput _desktopInput;
     private ControllersUpdateService _controllersUpdateService;
 
-    private GameMode _gameMode;
+    private GameplayCycle _gameplayCycle;
 
     private ControllersFactory _controllersFactory;
     private CharactersFactory _charactersFactory;
 
-    private void Awake()
-    {
-        StartCoroutine(StartProcess());
-    }
+    private void Awake() => StartCoroutine(StartProcess());
 
     private IEnumerator StartProcess()
     {
@@ -53,29 +50,37 @@ public class Bootstrap : MonoBehaviour
 
         LevelConfig levelConfig = levelsListConfig.GetRandomConfig();
 
-        AgentCharacter mainHero = mainHeroFactory.CreateAgentMainHero(heroConfig, levelConfig.MainHeroStartPosition, _moveInput, _pointView, _ground, _pointToMovePrefab);
-
-        _gameMode = new GameMode(levelConfig, mainHero, enemiesSpawner);
+        _gameplayCycle = new GameplayCycle(
+            mainHeroFactory,
+            heroConfig, 
+            _moveInput, 
+            _pointView, 
+            _ground, 
+            _pointToMovePrefab, 
+            levelConfig, 
+            _confirmPopup, 
+            enemiesSpawner, 
+            this);
 
         _medkitSpawner.Initialize(_desktopInput);
 
         yield return new WaitForSeconds(2f);
 
+        _gameplayCycle.Prepare();
+
         _loadingScreen.Hide();
 
-        _confirmPopup.Show();
-        _confirmPopup.ShowMessage($"PRESS {KeyCode.R.ToString()} FOR BEGIN");
-
-        yield return _confirmPopup.WaitConfirm(KeyCode.R);
-
-        _confirmPopup.Hide();
-
-        _gameMode.Start();
+        yield return _gameplayCycle.Launch();
     }
 
     private void Update()
     {
         _controllersUpdateService?.Update(Time.deltaTime);
-        _gameMode?.Update(Time.deltaTime);
+        _gameplayCycle?.Update(Time.deltaTime);
+    }
+
+    private void OnDestroy()
+    {
+        _gameplayCycle?.Dispose();
     }
 }
